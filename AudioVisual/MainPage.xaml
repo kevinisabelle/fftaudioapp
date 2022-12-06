@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:app="clr-namespace:AudioVisual"
+             x:DataType="app:AppViewModel"
+             x:Class="AudioVisual.MainPage">
+    <ContentPage.Resources>
+        <app:GraphDrawable x:Name="drawable" x:Key="drawable" />
+        <app:EQDrawable x:Name="drawable2" x:Key="drawable2" />
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout>
+        <Entry Text="{Binding ComPort}"/>
+        <Label Text="{Binding ComPort}"/>
+            <Button Command="{Binding SetColorsCommand}" Text="Set Colors"/>
+
+
+            <Button Command="{Binding StartAudioCommand}" Text="Start"/>
+            <Button Command="{Binding StopAudioCommand}" Text="Stop"/>
+            <Button Command="{Binding RefreshFFTCommand}" Text="RefreshFFT"/>
+
+            <Button Text="Draw" Clicked="drawButtonClicked" />
+            <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
+                      HeightRequest="800"
+                      WidthRequest="1000" />
+            <GraphicsView x:Name="GraphicsV" Drawable="{StaticResource drawable}"
+                      HeightRequest="250"
+                      WidthRequest="500" />
+           
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
