@@ -7,8 +7,10 @@
         public void Draw(ICanvas canvas, RectF dirtyRect)
         {
             canvas.StrokeColor = Colors.White;
-            canvas.StrokeSize = 30;
+
             float height = dirtyRect.Height;
+            var barWidth = (dirtyRect.Width / values.Length) - 2;
+            canvas.StrokeSize = barWidth - 1;
             var x = 0;
             foreach (var item in values)
             {
@@ -29,7 +31,7 @@
                     canvas.StrokeColor = Colors.Red;
                 }
 
-                canvas.DrawLine(((x + 1) * 31), height, (x + 1) * 31, height - (height * (float)values[x]));
+                canvas.DrawLine(((x + 1) * barWidth), height, (x + 1) * barWidth, height - (height * (float)values[x]));
                 x++;
             }
         }

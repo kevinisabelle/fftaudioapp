@@ -1,4 +1,6 @@
-﻿namespace AudioVisual;
+﻿using AudioVisual.Services;
+
+namespace AudioVisual;
 
 public partial class MainPage : ContentPage
 {
@@ -22,47 +24,12 @@ public partial class MainPage : ContentPage
         base.OnDisappearing();
     }
 
-    int[] Frequencies = new int[]
-    {
-        20,
-        65,
-        120,
-        200,
-        300,
-        400,
-        500,
-        600,
-        700,
-        800,
-        900,
-        1000,
-        2000,
-        3000,
-        4000,
-        5000,
-        6000,
-        7000,
-        8000,
-        9000,
-        10000,
-        12000,
-        16000,
-        18000
-    };
-
     private void run()
     {
-        /*Frequencies = new int[100];
-        for (int i = 1; i <= 100; i++)
-        {
-            int freq = (int)Math.Pow(i, 2) * 2 + 20;
-            Frequencies[i - 1] = freq;
-        }*/
-
         while (isRunning)
         {
             double[] values = _vm.GetFFT();
-            drawable2.values = Frequencies.Select(f => GetAggregateValue(f, values)).ToArray();
+            drawable2.values = FreqConfigs.SimpleConfig().Frequencies.Select(f => GetAggregateValue(f, values)).ToArray();
             _vm.UpdateLEDS(drawable2.values);
             try
             {
@@ -72,18 +39,35 @@ public partial class MainPage : ContentPage
             {
 
             }
-            Thread.Sleep(1000 / 60);
+            Thread.Sleep(1000 / 80);
         }
     }
 
-    private double GetAggregateValue(int frequency, double[] fftData)
+    private double GetAggregateValue(Frequency frequency, double[] fftData)
     {
-        int arrayPosition = (int)(frequency / _vm.GetFFTPeriod());
-        double valuesNeeded = ((frequency / _vm.GetFFTPeriod()));
-        double arrayDb = fftData[arrayPosition];
-        double normalized = Math.Log(valuesNeeded, 7);
+        if (frequency.FreqRange != null)
+        {
+            int[] arrayPosition = GetArrayRange(frequency);
+            var averageValue = fftData[arrayPosition[0]..arrayPosition[1]].Average();
+            double normalized = frequency.Remap(averageValue);
+            return normalized / 100;
+        }
+        else
+        {
+            int arrayPosition = (int)(frequency.Freq / _vm.GetFFTPeriod());
+            double arrayDb = fftData[arrayPosition];
+            double normalized = frequency.Remap(arrayDb);
 
-        return ((90 - Math.Abs(arrayDb)) / 90);
+            return normalized / 100;
+        }
+    }
+
+    private int[] GetArrayRange(Frequency frequency)
+    {
+        int arrayPosition1 = (int)(frequency.FreqRange[0] / _vm.GetFFTPeriod());
+        int arrayPosition2 = (int)(frequency.FreqRange[1] / _vm.GetFFTPeriod());
+
+        return new int[] { arrayPosition1, arrayPosition2 };
     }
 
     private void drawButtonClicked(object sender, EventArgs e)

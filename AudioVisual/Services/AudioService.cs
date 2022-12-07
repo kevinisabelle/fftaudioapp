@@ -10,7 +10,7 @@ namespace AudioVisual.Services
         int SampleRate = 44100;
         int BitDepth = 16;
         int ChannelCount = 1;
-        int BufferSamples = 4096 / 4;
+        int BufferSamples = 4096 / 2;
         public double fftPeriod;
 
         WasapiLoopbackCapture capture;

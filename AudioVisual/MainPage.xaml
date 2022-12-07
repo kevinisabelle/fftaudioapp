@@ -21,8 +21,8 @@
 
             <Button Text="Draw" Clicked="drawButtonClicked" />
             <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
-                      HeightRequest="800"
-                      WidthRequest="1000" />
+                      HeightRequest="500"
+                      WidthRequest="800" />
             <GraphicsView x:Name="GraphicsV" Drawable="{StaticResource drawable}"
                       HeightRequest="250"
                       WidthRequest="500" />

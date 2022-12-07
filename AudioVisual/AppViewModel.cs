@@ -37,9 +37,9 @@ namespace AudioVisual
             Random rand = new Random();
 
             colors.AddRange(GetColorsForValue(values[1], 15));
-            // colors.AddRange(GetColorsForValue(values[3], 8));
-            // colors.AddRange(GetColorsForValue(values[5], 7));
-            colors.AddRange(GetColorsForValue(values[4], 15));
+            colors.AddRange(GetColorsForValue(values[6], 15));
+            // colors.AddRange(GetColorsForValue(values[5], 15));
+            // colors.AddRange(GetColorsForValue(values[4], 15));
 
             _arduinoService.SendLightData(colors);
         }
