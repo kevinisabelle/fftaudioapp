@@ -36,10 +36,11 @@ namespace AudioVisual
             var colors = new List<Color>();
             Random rand = new Random();
 
-            colors.AddRange(GetColorsForValue(values[1], 15));
-            colors.AddRange(GetColorsForValue(values[6], 15));
-            // colors.AddRange(GetColorsForValue(values[5], 15));
-            // colors.AddRange(GetColorsForValue(values[4], 15));
+            colors.AddRange(GetColorsForValue(values[0], 30));
+            // colors.AddRange(GetColorsForValue(values[1], 9));
+            // colors.AddRange(GetColorsForValue(values[2], 8));
+            // colors.AddRange(GetColorsForValue(values[3], 6));
+            // colors.AddRange(GetColorsForValue(values[4], 6));
 
             _arduinoService.SendLightData(colors);
         }
@@ -83,6 +84,11 @@ namespace AudioVisual
         public double GetFFTPeriod()
         {
             return _audioService.fftPeriod;
+        }
+
+        public double GetSampleRate()
+        {
+            return _audioService.SampleRate;
         }
 
         public double[] GetFFT()

@@ -7,26 +7,25 @@
     <ContentPage.Resources>
         <app:GraphDrawable x:Name="drawable" x:Key="drawable" />
         <app:EQDrawable x:Name="drawable2" x:Key="drawable2" />
+        <app:GraphDrawable x:Name="drawable3" x:Key="drawable3" />
     </ContentPage.Resources>
-    <ScrollView>
+    <ScrollView HorizontalScrollBarVisibility="Always">
         <VerticalStackLayout>
         <Entry Text="{Binding ComPort}"/>
         <Label Text="{Binding ComPort}"/>
             <Button Command="{Binding SetColorsCommand}" Text="Set Colors"/>
-
-
             <Button Command="{Binding StartAudioCommand}" Text="Start"/>
             <Button Command="{Binding StopAudioCommand}" Text="Stop"/>
-            <Button Command="{Binding RefreshFFTCommand}" Text="RefreshFFT"/>
-
-            <Button Text="Draw" Clicked="drawButtonClicked" />
-            <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
-                      HeightRequest="500"
-                      WidthRequest="800" />
-            <GraphicsView x:Name="GraphicsV" Drawable="{StaticResource drawable}"
-                      HeightRequest="250"
-                      WidthRequest="500" />
            
+            <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
+                      HeightRequest="250"
+                      WidthRequest="800" />
+            <GraphicsView x:Name="GraphicsV3" Drawable="{StaticResource drawable3}"
+                      HeightRequest="500"
+                      WidthRequest="1800" />
+            <GraphicsView x:Name="GraphicsV" Drawable="{StaticResource drawable}"
+                      HeightRequest="500"
+                      WidthRequest="1800" />
         </VerticalStackLayout>
     </ScrollView>
 

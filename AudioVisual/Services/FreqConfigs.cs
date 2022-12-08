@@ -35,6 +35,34 @@
             };
         }
 
+        public static FrequenciesConfiguration MegaSimple()
+        {
+            return new FrequenciesConfiguration()
+            {
+                Frequencies = new List<Frequency>
+                {
+                    new(55),
+                    new(new double[]{100, 250 }),
+                    new(new double[]{1000, 5000 }),
+                    new(new double[]{8000, 10000 }),
+                    new(new double[]{12000, 17000 }, new double[]{-80, -45}),
+                }
+            };
+        }
+
+        public static FrequenciesConfiguration Single()
+        {
+            return new FrequenciesConfiguration()
+            {
+                Frequencies = new List<Frequency>
+                {
+                    new(new double[]{30, 70 }, new double[] { -70, -6 }),
+                    new(new double[]{200, 500 }, new double[] { -60, -9 }),
+                    new(new double[]{8000, 15000 }, new double[] { -70, -15 }),
+                }
+            };
+        }
+
         public static FrequenciesConfiguration NotesConfig()
         {
             return new FrequenciesConfiguration()

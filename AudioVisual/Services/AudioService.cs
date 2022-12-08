@@ -7,7 +7,7 @@ namespace AudioVisual.Services
         public double[] AudioValues;
         public double[] FftValues;
 
-        int SampleRate = 44100;
+        public int SampleRate = 44100;
         int BitDepth = 16;
         int ChannelCount = 1;
         int BufferSamples = 4096 / 2;
@@ -52,7 +52,13 @@ namespace AudioVisual.Services
         public void RefreshFFT()
         {
             double[] paddedAudio = FftSharp.Pad.ZeroPad(AudioValues);
-            double[] fftMag = FftSharp.Transform.FFTpower(paddedAudio);
+
+            var window = new FftSharp.Windows.Hanning();
+            var lowPassed = FftSharp.Filter.LowPass(AudioValues, 44100, 19000);
+            var hiPassed = FftSharp.Filter.HighPass(AudioValues, 44100, 40);
+            double[] windowed = window.Apply(hiPassed);
+            double[] fftMag = FftSharp.Transform.FFTpower(windowed);
+
             Array.Copy(fftMag, FftValues, fftMag.Length);
 
             // find the frequency peak
