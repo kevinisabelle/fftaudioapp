@@ -1,69 +1,83 @@
 #include <FastLED.h>
 
-#define LED_PIN 5
-#define NUM_LEDS 80
+#define LED_PIN 6
+#define NUM_LEDS 50
 #define BRIGHTNESS 64
-#define LED_TYPE WS2812
+#define LED_TYPE WS2812B
 #define COLOR_ORDER RGB
+#define REC_BUFFER_SIZE NUM_LEDS*4
 CRGB leds[NUM_LEDS];
 CRGB ledsBuffer[NUM_LEDS];
+int receptionIndex = 0;
+
+int receivedInts[REC_BUFFER_SIZE];
 
 #define UPDATES_PER_SECOND 60
 bool stringComplete = false; // whether the string is complete
+byte endMarker = 255;
 
 void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(2000000, SERIAL_8O1);
+  Serial.begin(2000000, SERIAL_8N1);
 
-  FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS);
+  FastLED.addLeds<LED_TYPE, LED_PIN>(leds, NUM_LEDS);
+  fill_solid(leds, NUM_LEDS, CRGB(50, 0, 200));
+  FastLED.show();
 }
 
 void loop()
 {
+  if (stringComplete == true)
+  {
+    stringComplete = false;
+    displayLeds();
+          
+  }
+}
+
+void displayLeds()
+{
+  digitalWrite(LED_BUILTIN, HIGH);
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = CRGB(receivedInts[i*3], receivedInts[(i*3)+1], receivedInts[(i*3)+2]); 
+  }
+  FastLED.show();
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void serialEvent()
 {
-  int ledIndex = 0;
-  int r = 0;
-  int g = 0;
-  int b = 0;
-  int currentColor = -1;
-  stringComplete = false;
+  
+  // stringComplete = false;
 
-  digitalWrite(LED_BUILTIN, HIGH);
+  
 
-  while (Serial.available())
+  /*if (receptionIndex == 0)
   {
-    int value = Serial.read();
-    currentColor++;
-
-    switch (currentColor)
+    for (int x = 0; x < sizeof(receivedInts) / sizeof(receivedInts[0]); x++)
     {
-    case 0:
-      r = value;
-      break;
-    case 1:
-      g = value;
-      break;
-    case 2:
-      b = value;
+      receivedInts[x] = 0;
     }
+  }*/
 
-    if (currentColor == 2)
+  if (Serial.available() > 0)
+  {
+    byte dataIn = Serial.read();
+    receivedInts[receptionIndex++] = dataIn;
+    if (dataIn == endMarker)
     {
-      ledsBuffer[ledIndex] = CRGB(g, r, b);
-      currentColor = -1;
-      ledIndex++;
+      receptionIndex = 0;
+      stringComplete = true;
     }
   }
 
-  for (int i = 0; i < NUM_LEDS; i++)
+  /* if (stringComplete == true)
   {
-    leds[i] = ledsBuffer[i];
-  }
-  FastLED.show();
-  digitalWrite(LED_BUILTIN, LOW);
-  stringComplete = true;
+    // displayLeds();
+    stringComplete = false;
+  }*/ 
+
+  
 }
