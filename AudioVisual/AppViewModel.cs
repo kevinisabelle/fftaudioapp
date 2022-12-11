@@ -11,7 +11,7 @@ namespace AudioVisual
 
         public AppViewModel()
         {
-            _arduinoService = new ArduinoService();
+            _arduinoService = new ArduinoService(Config.ArduinoComPort);
             _audioService = new AudioService();
         }
 
@@ -22,7 +22,6 @@ namespace AudioVisual
         public void SetColors()
         {
             var colors = new List<Color>();
-            Random rand = new Random();
             for (int i = 0; i < 30; i++)
             {
                 colors.Add(Colors.Teal);
@@ -34,13 +33,13 @@ namespace AudioVisual
         public void UpdateLEDS(double[] values)
         {
             var colors = new List<Color>();
-            Random rand = new Random();
 
-            colors.AddRange(GetColorsForValue(values[1], 480 / 8));
-            // colors.AddRange(GetColorsForValue(values[1], 9));
-            // colors.AddRange(GetColorsForValue(values[2], 8));
-            // colors.AddRange(GetColorsForValue(values[3], 6));
-            // colors.AddRange(GetColorsForValue(values[4], 6));
+            var ledsPerFreq = Config.NbLeds / values.Length;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                colors.AddRange(GetColorsForValue(values[i], ledsPerFreq));
+            }
 
             _arduinoService.SendLightData(colors);
         }
@@ -55,10 +54,10 @@ namespace AudioVisual
                 {
                     result.Add(new Color((float)value, 1 - ((float)value * 1.0f), 0));
                 }
-                else if (position == i)
+                /* else if (position == i)
                 {
                     result.Add(new Color((float)value, (float)value, (float)value));
-                }
+                }*/
                 else
                 {
                     result.Add(Colors.Black);
@@ -77,8 +76,6 @@ namespace AudioVisual
         public void RefreshFFT()
         {
             _audioService.RefreshFFT();
-
-
         }
 
         public double GetFFTPeriod()

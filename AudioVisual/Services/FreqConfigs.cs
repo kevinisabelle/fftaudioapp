@@ -2,30 +2,67 @@
 {
     public static class FreqConfigs
     {
+        public static FrequenciesConfiguration Leds20X12()
+        {
+            var offset = -5;
+
+            return new FrequenciesConfiguration()
+            {
+                Frequencies = new List<Frequency>
+                {
+
+                    new(55, new double[] { -50+offset, -2 }),
+                    new(73.42, new double[] { -50 + offset, -3 }),
+                    new(92.5, new double[] { -50 + offset, -4 }),
+                    new(123.47, new double[]{-50 + offset, -5}),
+                    new(155.56, new double[]{-50 + offset, -6-offset}),
+                    new(new double[]{200, 300 }, new double[]{-50 + offset,-6-offset}),
+                    new(new double[]{300, 400 }, new double[]{-52 + offset, -9-offset}),
+                    new(new double[]{400, 500 }, new double[]{-54 + offset,-15-offset}),
+                    new(new double[]{500, 800 }, new double[]{-56 + offset,-18-offset}),
+                    new(new double[]{800, 1000 }, new double[]{-58 + offset,-21-offset}),
+                    new(new double[]{1000, 2000 }, new double[]{-60 + offset,-24-offset}),
+                    new(new double[]{2000, 3000 }, new double[]{-62 + offset, -24-offset}),
+                    new(new double[]{3000, 4000 }, new double[]{-64 + offset, -24-offset}),
+                    new(new double[]{4000, 5000 }, new double[]{-66 + offset, -24-offset}),
+                    new(new double[]{5000, 6000 }, new double[]{-68 + offset, -26-offset}),
+                    new(new double[]{6000, 7000 }, new double[]{-68 + offset, -28-offset}),
+                    new(new double[]{7000, 9000 }, new double[]{-70 + offset, -30-offset}),
+                    new(new double[]{10000, 12000 }, new double[]{-72 + offset, -30-offset}),
+                    new(new double[]{12000, 16000 }, new double[]{-75 + offset, -35-offset}),
+                    new(new double[]{16000, 18000 }, new double[]{-80 + offset, -50-offset}),
+                    new(new double[]{18000, 20000 }, new double[]{-100 + offset, -60-offset}),
+
+                }
+            };
+        }
+
+
         public static FrequenciesConfiguration SimpleConfig()
         {
             return new FrequenciesConfiguration()
             {
                 Frequencies = new List<Frequency>
                 {
-                    new(35),
-                    new(50),
-                    new(60),
-                    new(80),
-                    new(100),
-                    new(120),
-                    new(150),
-                    new(200),
-                    new(250),
-                    new(300),
-                    new(400),
-                    new(500),
-                    new(2000),
-                    new(3000),
-                    new(4000),
-                    new(5000),
-                    new(6000),
-                    new(7000),
+                    new(36.71),
+                    new(51.91),
+                    new(55),
+                    new(73.42),
+                    new(92.5),
+                    new(123.47),
+                    new(new double[]{150, 200 }, new double[]{-75,-30}),
+                    new(new double[]{200, 300 }, new double[]{-75,-30}),
+                    new(new double[]{300, 400 }, new double[]{-75,-30}),
+                    new(new double[]{400, 500 }, new double[]{-75,-30}),
+                    new(new double[]{500, 800 }, new double[]{-75,-30}),
+                    new(new double[]{800, 1000 }, new double[]{-75,-30}),
+                    new(new double[]{1000, 2000 }, new double[]{-75,-30}),
+                    new(new double[]{2000, 3000 }, new double[]{-75,-30}),
+                    new(new double[]{3000, 4000 }, new double[]{-75,-30}),
+                    new(new double[]{4000, 5000 }, new double[]{-75,-30}),
+                    new(new double[]{5000, 6000 }, new double[]{-75,-30}),
+                    new(new double[]{6000, 7000 }, new double[]{-75,-30}),
+                    new(new double[]{7000, 8000 }, new double[]{-75,-30}),
                     new(new double[]{8000, 9000 }, new double[]{-75,-30}),
                     new(new double[]{10000, 12000 }, new double[]{-75, -30}),
                     new(new double[]{12000, 16000 }, new double[]{-75, -35}),
@@ -41,11 +78,11 @@
             {
                 Frequencies = new List<Frequency>
                 {
-                    new(55),
+                    new(50),
                     new(new double[]{100, 250 }),
-                    new(new double[]{1000, 5000 }),
-                    new(new double[]{8000, 10000 }),
-                    new(new double[]{12000, 17000 }, new double[]{-80, -45}),
+                    new(new double[]{1000, 5000 }, new double[]{-90, -15}),
+                    new(new double[]{8000, 10000 }, new double[]{-100, -30}),
+                    new(new double[]{12000, 17000 }, new double[]{-100, -35}),
                 }
             };
         }
@@ -70,17 +107,15 @@
                 Frequencies = new List<Frequency>
                 {
                     new(36.71),
-                    new(41.2),
                     new(51.91),
-                    new(65.41),
+
                     new(73.42),
-                    new(77.78),
-                    new(82.41),
-                    new(87.31 ),
+
+
+
                     new(92.5),
-                    new(98),
-                    new(103.83),
-                    new(110),
+
+
                     new(116.54),
                     new(123.47),
                     new(130.81),

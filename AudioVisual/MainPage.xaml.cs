@@ -1,12 +1,11 @@
-﻿using AudioVisual.Services;
-
-namespace AudioVisual;
+﻿namespace AudioVisual;
 
 public partial class MainPage : ContentPage
 {
     private readonly AppViewModel _vm;
     private bool isRunning = true;
     private Thread refreshThread;
+    private Thread ledRefreshThread;
 
     public MainPage(AppViewModel vm)
     {
@@ -14,6 +13,9 @@ public partial class MainPage : ContentPage
         BindingContext = _vm = vm;
         refreshThread = new Thread(new ThreadStart(run));
         refreshThread.Start();
+
+        ledRefreshThread = new Thread(new ThreadStart(runLeds));
+        ledRefreshThread.Start();
     }
 
     protected override void OnDisappearing()
@@ -29,21 +31,31 @@ public partial class MainPage : ContentPage
         while (isRunning)
         {
             double[] values = _vm.GetFFT();
-            drawable2.values = FreqConfigs.Single().Frequencies.Select(f => f.GetNormalizedValue(_vm.GetFFTPeriod(), values)).ToArray();
-            _vm.UpdateLEDS(drawable2.values);
+            drawable2.values = Config.FreqConfig.Frequencies.Select(f => f.GetNormalizedValue(_vm.GetFFTPeriod(), values)).ToArray();
             drawable.values = _vm.GetAudio().Select(v => (v * 500)).ToArray();
             drawable3.values = values;
             try
             {
                 GraphicsV2.Invalidate();
-                GraphicsV.Invalidate();
-                GraphicsV3.Invalidate();
+                //GraphicsV.Invalidate();
+                //GraphicsV3.Invalidate();
             }
             catch (Exception)
             {
 
             }
-            Thread.Sleep(1000 / 80);
+            Thread.Sleep(1000 / Config.ScreenRefreshRate);
+        }
+    }
+
+    private void runLeds()
+    {
+        while (isRunning)
+        {
+            var ledsValues = Config.FreqConfig.Frequencies.Select(f => f.GetNormalizedValue(_vm.GetFFTPeriod(), _vm.GetFFT())).ToArray();
+            _vm.UpdateLEDS(ledsValues);
+
+            Thread.Sleep(1000 / Config.LedsRefreshRate);
         }
     }
 }

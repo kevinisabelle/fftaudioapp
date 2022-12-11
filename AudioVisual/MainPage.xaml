@@ -18,8 +18,8 @@
             <Button Command="{Binding StopAudioCommand}" Text="Stop"/>
            
             <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
-                      HeightRequest="250"
-                      WidthRequest="800" />
+                      HeightRequest="500"
+                      WidthRequest="1000" />
             <GraphicsView x:Name="GraphicsV3" Drawable="{StaticResource drawable3}"
                       HeightRequest="500"
                       WidthRequest="1800" />

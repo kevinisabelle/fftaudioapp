@@ -8,8 +8,6 @@ namespace AudioVisual.Services
         public double[] FftValues;
 
         public int SampleRate = 44100;
-        int BitDepth = 16;
-        int ChannelCount = 1;
         int BufferSamples = 4096 / 2;
         public double fftPeriod;
 
@@ -19,8 +17,8 @@ namespace AudioVisual.Services
         {
             capture = new WasapiLoopbackCapture();
             SampleRate = capture.WaveFormat.SampleRate;
-            BitDepth = capture.WaveFormat.BitsPerSample;
-            ChannelCount = capture.WaveFormat.Channels;
+            var BitDepth = capture.WaveFormat.BitsPerSample;
+            var ChannelCount = capture.WaveFormat.Channels;
 
             AudioValues = new double[BufferSamples];
             double[] paddedAudio = FftSharp.Pad.ZeroPad(AudioValues);
@@ -51,28 +49,16 @@ namespace AudioVisual.Services
 
         public void RefreshFFT()
         {
-            double[] paddedAudio = FftSharp.Pad.ZeroPad(AudioValues);
-
             var window = new FftSharp.Windows.Hanning();
-            var lowPassed = FftSharp.Filter.LowPass(AudioValues, 44100, 19000);
-            var hiPassed = FftSharp.Filter.HighPass(AudioValues, 44100, 40);
-            double[] windowed = window.Apply(hiPassed);
+            var lowPassed = FftSharp.Filter.LowPass(AudioValues, 44100, Config.LowPass);
+            var hiPassed = FftSharp.Filter.HighPass(lowPassed, 44100, Config.HiPass);
+            double[] paddedAudio = FftSharp.Pad.ZeroPad(hiPassed);
+            double[] windowed = window.Apply(paddedAudio);
             double[] fftMag = FftSharp.Transform.FFTpower(windowed);
 
             Array.Copy(fftMag, FftValues, fftMag.Length);
 
-            // find the frequency peak
-            int peakIndex = 0;
-            for (int i = 0; i < fftMag.Length; i++)
-            {
-                if (fftMag[i] > fftMag[peakIndex])
-                    peakIndex = i;
-            }
-            double fftPeriod = FftSharp.Transform.FFTfreqPeriod(SampleRate, fftMag.Length);
-            double peakFrequency = fftPeriod * peakIndex;
-
-            // auto-scale the plot Y axis limits
-            double fftPeakMag = fftMag.Max();
+            fftPeriod = FftSharp.Transform.FFTfreqPeriod(SampleRate, fftMag.Length);
         }
 
         public void Start()
