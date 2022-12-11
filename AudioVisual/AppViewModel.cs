@@ -36,7 +36,7 @@ namespace AudioVisual
             var colors = new List<Color>();
             Random rand = new Random();
 
-            colors.AddRange(GetColorsForValue(values[0], 50));
+            colors.AddRange(GetColorsForValue(values[1], 480 / 8));
             // colors.AddRange(GetColorsForValue(values[1], 9));
             // colors.AddRange(GetColorsForValue(values[2], 8));
             // colors.AddRange(GetColorsForValue(values[3], 6));

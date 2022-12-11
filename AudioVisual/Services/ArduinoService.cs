@@ -10,9 +10,9 @@ namespace AudioVisual.Services
         public ArduinoService(string port = "COM3")
         {
             // SERIAL_8N1 
-            _serialPort = new SerialPort(port, 2000000, Parity.None, 8, StopBits.One);
+            _serialPort = new SerialPort(port, 115200, Parity.None, 8, StopBits.One);
             // _serialPort.WriteBufferSize = 512;
-
+            _serialPort.Open();
         }
 
         public void SendLightData(List<Color> colors)
@@ -24,7 +24,7 @@ namespace AudioVisual.Services
                 c.GetByteBlue() >= 255 ? (byte)254 : c.GetByteBlue()
             }
             ).ToArray();
-            _serialPort.Open();
+
             /*foreach (var c in colors)
             {
                 var cb = new byte[] { c.GetByteRed(), c.GetByteGreen(), c.GetByteBlue() };
@@ -32,10 +32,10 @@ namespace AudioVisual.Services
     
             }*/
             // string data = BitConverter.ToString(colorsBytes);
-            byte[] data = colorsBytes.Concat(new List<byte>() { 255, 255, 255, 255 }).ToArray();
+            byte[] data = colorsBytes.Concat(new List<byte>() { 0xFF }).ToArray();
             _serialPort.Write(data, 0, data.Length);
             //_serialPort.WriteLine("");
-            _serialPort.Close();
+            // _serialPort.Close();
         }
     }
 }
