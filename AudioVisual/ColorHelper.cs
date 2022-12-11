@@ -4,7 +4,7 @@ namespace AudioVisual
 {
     public static class ColorHelper
     {
-        public static List<Color> GetColorsForValue(double value, int length)
+        public static List<Color> GetColorsForValue(double value, int length, bool invert = false)
         {
             var result = new List<Color>();
             var position = value * length;

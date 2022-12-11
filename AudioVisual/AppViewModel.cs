@@ -15,9 +15,6 @@ namespace AudioVisual
             _audioService = new AudioService();
         }
 
-        [ObservableProperty]
-        public string comPort = "com3";
-
         public void UpdateLEDS(double[] values)
         {
             var colors = new List<Color>();
@@ -26,7 +23,8 @@ namespace AudioVisual
 
             for (int i = 0; i < values.Length; i++)
             {
-                colors.AddRange(ColorHelper.GetColorsForValue(values[i], ledsPerFreq));
+                bool inverted = i % 2 != 0;
+                colors.AddRange(ColorHelper.GetColorsForValue(values[i], ledsPerFreq, inverted));
             }
 
             _arduinoService.SendLightData(colors);
