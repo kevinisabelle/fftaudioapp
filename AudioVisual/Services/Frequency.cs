@@ -18,10 +18,22 @@
 
         public double[] FreqRange { get; set; } = null;
         public double[] ValuesRange { get; set; } = null;
+        public double CurrentValue { get; set; } = 0;
+
+        public void SetCurrentValue(double value, double fallOffSpeed)
+        {
+            if (CurrentValue - value > fallOffSpeed)
+            {
+                CurrentValue -= fallOffSpeed;
+                return;
+            }
+
+            CurrentValue = value;
+        }
 
         public double Remap(double value)
         {
-            double from1 = ValuesRange?[0] ?? -90;
+            double from1 = ValuesRange?[0] ?? -100;
             double to1 = ValuesRange?[1] ?? 0;
             double from2 = 0;
             double to2 = 100;

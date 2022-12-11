@@ -11,21 +11,20 @@
     </ContentPage.Resources>
     <ScrollView HorizontalScrollBarVisibility="Always">
         <VerticalStackLayout>
-        <Entry Text="{Binding ComPort}"/>
-        <Label Text="{Binding ComPort}"/>
-            <Button Command="{Binding SetColorsCommand}" Text="Set Colors"/>
-            <Button Command="{Binding StartAudioCommand}" Text="Start"/>
-            <Button Command="{Binding StopAudioCommand}" Text="Stop"/>
-           
+            <HorizontalStackLayout>
+                <Button Command="{Binding StartAudioCommand}" Text="Start"/>
+                <Button Command="{Binding StopAudioCommand}" Text="Stop"/>
+            </HorizontalStackLayout>
+       
             <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
                       HeightRequest="500"
                       WidthRequest="1000" />
             <GraphicsView x:Name="GraphicsV3" Drawable="{StaticResource drawable3}"
-                      HeightRequest="500"
-                      WidthRequest="1800" />
+                      HeightRequest="0"
+                      WidthRequest="0" />
             <GraphicsView x:Name="GraphicsV" Drawable="{StaticResource drawable}"
-                      HeightRequest="500"
-                      WidthRequest="1800" />
+                      HeightRequest="0"
+                      WidthRequest="0" />
         </VerticalStackLayout>
     </ScrollView>
 

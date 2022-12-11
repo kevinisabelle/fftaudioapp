@@ -16,7 +16,7 @@ namespace AudioVisual
             var x = 0;
             foreach (var item in values)
             {
-                var color = new Color((float)item, 1 - ((float)item * 1.0f), 0);
+                var color = ColorHelper.GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], item);
 
                 canvas.StrokeColor = color;
 

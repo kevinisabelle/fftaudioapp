@@ -31,9 +31,9 @@ public partial class MainPage : ContentPage
         while (isRunning)
         {
             double[] values = _vm.GetFFT();
-            drawable2.values = Config.FreqConfig.Frequencies.Select(f => f.GetNormalizedValue(_vm.GetFFTPeriod(), values)).ToArray();
-            drawable.values = _vm.GetAudio().Select(v => (v * 500)).ToArray();
-            drawable3.values = values;
+            drawable2.values = Config.FreqConfig.Frequencies.Select(f => f.CurrentValue).ToArray();
+            // drawable.values = _vm.GetAudio().Select(v => (v * 500)).ToArray();
+            // drawable3.values = values;
             try
             {
                 GraphicsV2.Invalidate();
@@ -52,7 +52,13 @@ public partial class MainPage : ContentPage
     {
         while (isRunning)
         {
-            var ledsValues = Config.FreqConfig.Frequencies.Select(f => f.GetNormalizedValue(_vm.GetFFTPeriod(), _vm.GetFFT())).ToArray();
+            double[] values = _vm.GetFFT();
+            Config.FreqConfig.Frequencies.ForEach(f =>
+            {
+                f.SetCurrentValue(f.GetNormalizedValue(_vm.GetFFTPeriod(), values), Config.FalloffSpeed);
+            });
+
+            var ledsValues = Config.FreqConfig.Frequencies.Select(f => f.CurrentValue).ToArray();
             _vm.UpdateLEDS(ledsValues);
 
             Thread.Sleep(1000 / Config.LedsRefreshRate);

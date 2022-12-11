@@ -18,18 +18,6 @@ namespace AudioVisual
         [ObservableProperty]
         public string comPort = "com3";
 
-        [RelayCommand]
-        public void SetColors()
-        {
-            var colors = new List<Color>();
-            for (int i = 0; i < 30; i++)
-            {
-                colors.Add(Colors.Teal);
-            }
-
-            _arduinoService.SendLightData(colors);
-        }
-
         public void UpdateLEDS(double[] values)
         {
             var colors = new List<Color>();
@@ -38,32 +26,10 @@ namespace AudioVisual
 
             for (int i = 0; i < values.Length; i++)
             {
-                colors.AddRange(GetColorsForValue(values[i], ledsPerFreq));
+                colors.AddRange(ColorHelper.GetColorsForValue(values[i], ledsPerFreq));
             }
 
             _arduinoService.SendLightData(colors);
-        }
-
-        private List<Color> GetColorsForValue(double value, int length)
-        {
-            var result = new List<Color>();
-            var position = value * length;
-            for (int i = 0; i < length; i++)
-            {
-                if (position > i)
-                {
-                    result.Add(new Color((float)value, 1 - ((float)value * 1.0f), 0));
-                }
-                /* else if (position == i)
-                {
-                    result.Add(new Color((float)value, (float)value, (float)value));
-                }*/
-                else
-                {
-                    result.Add(Colors.Black);
-                }
-            }
-            return result;
         }
 
         [RelayCommand]
