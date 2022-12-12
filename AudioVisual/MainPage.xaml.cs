@@ -1,4 +1,6 @@
-﻿namespace AudioVisual;
+﻿using AudioVisual.Services;
+
+namespace AudioVisual;
 
 public partial class MainPage : ContentPage
 {
@@ -16,6 +18,17 @@ public partial class MainPage : ContentPage
 
         ledRefreshThread = new Thread(new ThreadStart(runLeds));
         ledRefreshThread.Start();
+
+        TxtComPort.Text = Config.ArduinoComPort;
+        TxtFalloff.Text = Config.FalloffSpeed.ToString();
+        TxtHiColor.Text = Config.LevelColors[1].ToHex();
+        TxtHiPass.Text = Config.HiPass.ToString();
+        TxtLowColor.Text = Config.LevelColors[0].ToHex();
+        TxtLowPass.Text = Config.LowPass.ToString();
+        TxtHiOffset.Text = Config.HiLevelOffset.ToString();
+        TxtLowOffset.Text = Config.LowLevelOffset.ToString();
+        TxtLedsRefreshRate.Text = Config.LedsRefreshRate.ToString();
+        TxtScreenRefreshRate.Text = Config.ScreenRefreshRate.ToString();
     }
 
     protected override void OnDisappearing()
@@ -63,6 +76,22 @@ public partial class MainPage : ContentPage
 
             Thread.Sleep(1000 / Config.LedsRefreshRate);
         }
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        Config.ArduinoComPort = TxtComPort.Text;
+        Config.FalloffSpeed = double.Parse(TxtFalloff.Text);
+        Config.LevelColors[1] = Color.FromArgb(TxtHiColor.Text);
+        Config.HiPass = int.Parse(TxtHiPass.Text);
+        Config.LevelColors[0] = Color.FromArgb(TxtLowColor.Text);
+        Config.LowPass = int.Parse(TxtLowPass.Text);
+        Config.HiLevelOffset = int.Parse(TxtHiOffset.Text);
+        Config.LowLevelOffset = int.Parse(TxtLowOffset.Text);
+        Config.FreqConfig = FreqConfigs.Leds22X12(Config.LowLevelOffset, Config.HiLevelOffset);
+        Config.LedsRefreshRate = int.Parse(TxtLedsRefreshRate.Text);
+        Config.ScreenRefreshRate = int.Parse(TxtScreenRefreshRate.Text);
+        _vm.UpdateArduinoService();
     }
 }
 

@@ -2,37 +2,35 @@
 {
     public static class FreqConfigs
     {
-        public static FrequenciesConfiguration Leds20X12()
+        public static FrequenciesConfiguration Leds22X12(int lowOffset, int hiOffset)
         {
-            var offset = -5;
-
             return new FrequenciesConfiguration()
             {
                 Frequencies = new List<Frequency>
                 {
 
-                    new(55, new double[] { -50+offset, -2 }),
-                    new(73.42, new double[] { -50 + offset, -3 }),
-                    new(92.5, new double[] { -50 + offset, -4 }),
-                    new(123.47, new double[]{-50 + offset, -5}),
-                    new(155.56, new double[]{-60 + offset, -6-offset}),
-                    new(new double[]{200, 300 }, new double[]{-50 + offset,-6-offset}),
-                    new(new double[]{300, 400 }, new double[]{-52 + offset, -9-offset}),
-                    new(new double[]{400, 500 }, new double[]{-54 + offset,-15-offset}),
-                    new(new double[]{500, 600 }, new double[]{-56 + offset,-18-offset}),
-                    new(new double[]{600, 800 }, new double[]{-56 + offset,-18-offset}),
-                    new(new double[]{800, 1000 }, new double[]{-58 + offset,-21-offset}),
-                    new(new double[]{1000, 2000 }, new double[]{-60 + offset,-21-offset}),
-                    new(new double[]{2000, 3000 }, new double[]{-62 + offset, -22-offset}),
-                    new(new double[]{3000, 4000 }, new double[]{-64 + offset, -23-offset}),
-                    new(new double[]{4000, 5000 }, new double[]{-66 + offset, -24-offset}),
-                    new(new double[]{5000, 6000 }, new double[]{-68 + offset, -26-offset}),
-                    new(new double[]{6000, 7000 }, new double[]{-68 + offset, -28-offset}),
-                    new(new double[]{7000, 9000 }, new double[]{-70 + offset, -30-offset}),
-                    new(new double[]{10000, 12000 }, new double[]{-72 + offset, -30-offset}),
-                    new(new double[]{12000, 16000 }, new double[]{-75 + offset, -35-offset}),
-                    new(new double[]{16000, 18000 }, new double[]{-80 + offset, -50-offset}),
-                    new(new double[]{18000, 20000 }, new double[]{-100 + offset, -60-offset}),
+                    new(55, new double[] { -50+lowOffset, -2 }),
+                    new(73.42, new double[] { -50+lowOffset, -3 }),
+                    new(92.5, new double[] { -50+lowOffset, -4 }),
+                    new(123.47, new double[]{-50+lowOffset, -5}),
+                    new(155.56, new double[]{-60+lowOffset, -6+hiOffset}),
+                    new(new double[]{200, 300 }, new double[]{-50+lowOffset,-6+hiOffset}),
+                    new(new double[]{300, 400 }, new double[]{-52+lowOffset, -9+hiOffset}),
+                    new(new double[]{400, 500 }, new double[]{-54+lowOffset,-15+hiOffset}),
+                    new(new double[]{500, 600 }, new double[]{-56+lowOffset,-18+hiOffset}),
+                    new(new double[]{600, 800 }, new double[]{-56+lowOffset,-18+hiOffset}),
+                    new(new double[]{800, 1000 }, new double[]{-58+lowOffset,-21+hiOffset}),
+                    new(new double[]{1000, 2000 }, new double[]{-60+lowOffset,-21+hiOffset}),
+                    new(new double[]{2000, 3000 }, new double[]{-62+lowOffset, -22+hiOffset}),
+                    new(new double[]{3000, 4000 }, new double[]{-64+lowOffset, -23+hiOffset}),
+                    new(new double[]{4000, 5000 }, new double[]{-66+lowOffset, -24+hiOffset}),
+                    new(new double[]{5000, 6000 }, new double[]{-68+lowOffset, -26+hiOffset}),
+                    new(new double[]{6000, 7000 }, new double[]{-68+lowOffset, -28+hiOffset}),
+                    new(new double[]{7000, 9000 }, new double[]{-70+lowOffset, -30+hiOffset}),
+                    new(new double[]{10000, 12000 }, new double[]{-72+lowOffset, -30+hiOffset}),
+                    new(new double[]{12000, 16000 }, new double[]{-75+lowOffset, -35+hiOffset}),
+                    new(new double[]{16000, 18000 }, new double[]{-80+lowOffset, -50+hiOffset}),
+                    new(new double[]{18000, 20000 }, new double[]{-100+lowOffset, -60+hiOffset}),
 
                 }
             };

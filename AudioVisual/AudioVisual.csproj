@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="ColorPicker.Maui" Version="1.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 		<PackageReference Include="FftSharp" Version="1.1.6" />

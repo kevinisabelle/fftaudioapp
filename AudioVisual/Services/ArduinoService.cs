@@ -16,17 +16,24 @@ namespace AudioVisual.Services
 
         public void SendLightData(List<Color> colors)
         {
-            _serialPort.Open();
-            var colorsBytes = colors.SelectMany(c => new byte[] {
+            try
+            {
+                _serialPort.Open();
+                var colorsBytes = colors.SelectMany(c => new byte[] {
                  c.GetByteGreen() >= 255 ? (byte)254 : c.GetByteGreen(),
                 c.GetByteRed() >= 255 ? (byte)254 : c.GetByteRed(),
                 c.GetByteBlue() >= 255 ? (byte)254 : c.GetByteBlue()
             }
-            ).ToArray();
+                ).ToArray();
 
-            byte[] data = colorsBytes.Concat(new List<byte>() { 0xFF }).ToArray();
-            _serialPort.Write(data, 0, data.Length);
-            _serialPort.Close();
+                byte[] data = colorsBytes.Concat(new List<byte>() { 0xFF }).ToArray();
+                _serialPort.Write(data, 0, data.Length);
+                _serialPort.Close();
+            }
+            catch (Exception ex)
+            {
+                // Ignore
+            }
         }
     }
 }

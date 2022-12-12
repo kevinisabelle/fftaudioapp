@@ -15,6 +15,11 @@ namespace AudioVisual
             _audioService = new AudioService();
         }
 
+        public void UpdateArduinoService()
+        {
+            _arduinoService = new ArduinoService(Config.ArduinoComPort);
+        }
+
         public void UpdateLEDS(double[] values)
         {
             var colors = new List<Color>();
