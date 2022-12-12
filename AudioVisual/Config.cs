@@ -19,12 +19,12 @@ namespace AudioVisual
 
         public static readonly int NbLeds = 12 * 22;
 
-        public static readonly double FalloffSpeed = 0.1;
+        public static readonly double FalloffSpeed = 0.075;
 
         public static readonly List<Color> LevelColors = new List<Color>()
         {
             Colors.Green,
-            Colors.Red,
+            Colors.Red
         };
     }
 }

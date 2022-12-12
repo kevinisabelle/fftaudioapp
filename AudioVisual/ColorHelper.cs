@@ -8,18 +8,40 @@ namespace AudioVisual
         {
             var result = new List<Color>();
             var position = value * length;
-            for (int i = 0; i < length; i++)
+
+            if (!invert)
             {
-                if (position >= i)
+                for (int i = length - 1; i >= 0; i--)
                 {
-                    result.Add(GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], value));
-                }
-                else
-                {
-                    result.Add(Colors.Black);
+                    AddColor(result, position, value, i);
                 }
             }
+            else
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    AddColor(result, position, value, i);
+                }
+            }
+
             return result;
+        }
+
+        private static void AddColor(List<Color> result, double position, double value, int i)
+        {
+            if (Math.Round(position) > i)
+            {
+                result.Add(GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], value));
+            }
+            else if (Math.Round(position) == i)
+            {
+                var color = GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], value);
+                result.Add(GetFadedColor(color, Colors.Black, 0.75));
+            }
+            else
+            {
+                result.Add(Colors.Black);
+            }
         }
 
         public static Color GetFadedColor(Color start, Color end, double ratio)

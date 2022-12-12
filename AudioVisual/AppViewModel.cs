@@ -20,11 +20,12 @@ namespace AudioVisual
             var colors = new List<Color>();
 
             var ledsPerFreq = Config.NbLeds / values.Length;
+            var valuesRev = values.Reverse().ToArray();
 
-            for (int i = 0; i < values.Length; i++)
+            for (int i = 0; i < valuesRev.Length; i++)
             {
                 bool inverted = i % 2 != 0;
-                colors.AddRange(ColorHelper.GetColorsForValue(values[i], ledsPerFreq, inverted));
+                colors.AddRange(ColorHelper.GetColorsForValue(valuesRev[i], ledsPerFreq, inverted));
             }
 
             _arduinoService.SendLightData(colors);
