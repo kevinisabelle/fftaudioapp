@@ -29,8 +29,8 @@
                     new(new double[]{7000, 9000 }, new double[]{-70+lowOffset, -30+hiOffset}),
                     new(new double[]{10000, 12000 }, new double[]{-72+lowOffset, -30+hiOffset}),
                     new(new double[]{12000, 16000 }, new double[]{-75+lowOffset, -35+hiOffset}),
-                    new(new double[]{16000, 18000 }, new double[]{-80+lowOffset, -50+hiOffset}),
-                    new(new double[]{18000, 20000 }, new double[]{-100+lowOffset, -60+hiOffset}),
+                    new(new double[]{16000, 18000 }, new double[]{-90+lowOffset, -50+hiOffset}),
+                    new(new double[]{18000, 20000 }, new double[]{-100+lowOffset, -55+hiOffset}),
 
                 }
             };

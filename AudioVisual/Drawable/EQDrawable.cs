@@ -11,7 +11,7 @@ namespace AudioVisual
             canvas.StrokeColor = Colors.White;
 
             float height = dirtyRect.Height;
-            var barWidth = (dirtyRect.Width / values.Length);
+            var barWidth = (dirtyRect.Width / values.Length) - 10;
             canvas.StrokeSize = barWidth - 1;
             var x = 0;
             foreach (var item in values)
