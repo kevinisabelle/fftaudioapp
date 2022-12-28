@@ -10,7 +10,7 @@
         <app:GraphDrawable x:Name="drawable3" x:Key="drawable3" />
     </ContentPage.Resources>
     <ScrollView HorizontalScrollBarVisibility="Always">
-        <HorizontalStackLayout Margin="20" HeightRequest="600" HorizontalOptions="Center">
+        <HorizontalStackLayout Margin="20" HeightRequest="1200" HorizontalOptions="Center">
             <Border Padding="10">
                 <VerticalStackLayout>
                     
@@ -58,6 +58,10 @@
             </HorizontalStackLayout>
        
             <GraphicsView x:Name="GraphicsV2" Drawable="{StaticResource drawable2}"
+                      HeightRequest="500"
+                      WidthRequest="1000" />
+
+                <GraphicsView x:Name="GraphicsV3" Drawable="{StaticResource drawable3}"
                       HeightRequest="500"
                       WidthRequest="1000" />
             </VerticalStackLayout>

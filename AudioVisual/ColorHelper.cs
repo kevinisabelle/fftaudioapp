@@ -29,14 +29,16 @@ namespace AudioVisual
 
         private static void AddColor(List<Color> result, double position, double value, int i)
         {
-            if (Math.Round(position) > i)
+            if (Math.Floor(position) > i)
             {
                 result.Add(GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], value));
             }
-            else if (Math.Round(position) == i)
+            else if (Math.Floor(position) == i)
             {
+                double percentPosition = position % 1.0;
                 var color = GetFadedColor(Config.LevelColors[0], Config.LevelColors[1], value);
-                result.Add(GetFadedColor(color, Colors.Black, 0.75));
+                var color2 = GetFadedColor(Colors.Black, color, percentPosition);
+                result.Add(color2);
             }
             else
             {

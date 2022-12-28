@@ -46,12 +46,12 @@ public partial class MainPage : ContentPage
             double[] values = _vm.GetFFT();
             drawable2.values = Config.FreqConfig.Frequencies.Select(f => f.CurrentValue).ToArray();
             // drawable.values = _vm.GetAudio().Select(v => (v * 500)).ToArray();
-            // drawable3.values = values;
+            drawable3.values = values;
             try
             {
                 GraphicsV2.Invalidate();
                 //GraphicsV.Invalidate();
-                //GraphicsV3.Invalidate();
+                GraphicsV3.Invalidate();
             }
             catch (Exception)
             {

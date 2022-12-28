@@ -5,14 +5,14 @@ namespace AudioVisual
     public static class Config
     {
         public static int LedsRefreshRate = 120;
-        public static int ScreenRefreshRate = 30;
+        public static int ScreenRefreshRate = 60;
 
         public static int LowLevelOffset = -8;
         public static int HiLevelOffset = -8;
 
         public static FrequenciesConfiguration FreqConfig = FreqConfigs.Leds22X12(LowLevelOffset, HiLevelOffset);
 
-        public static string ArduinoComPort = "COM4";
+        public static string ArduinoComPort = "COM6";
 
         public static int HiPass = 35;
         public static int LowPass = 20000;
@@ -23,7 +23,7 @@ namespace AudioVisual
 
         public static readonly List<Color> LevelColors = new List<Color>()
         {
-            Color.FromArgb("#00FF00"),
+            Color.FromArgb("#0000FF"),
             Color.FromArgb("#FF0000")
         };
     }
